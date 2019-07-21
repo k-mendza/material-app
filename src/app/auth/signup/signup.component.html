@@ -26,6 +26,13 @@
       <mat-error *ngIf="pw.hasError('required')">This field must not be empty.</mat-error>
       <mat-hint align="end"> {{pw.value.length}}/6 </mat-hint>
     </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Your BirthDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
     <button type="submit" mat-raised-button color="primary">Submit</button>
   </form>
 </section>
