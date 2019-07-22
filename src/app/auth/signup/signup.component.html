@@ -29,7 +29,11 @@
     <mat-form-field>
       <input
         matInput
-        placeholder="Your BirthDate" [matDatepicker]="picker" [max]="maxDate" ngModel="birthDate" required>
+        placeholder="Your birthdate"
+        [matDatepicker]="picker"
+        [max]="maxDate"
+        ngModel="birthDate"
+        required>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
