@@ -13,7 +13,7 @@ export class SidenavListComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClose(){
+  onClose() {
     this.sidenavClose.emit();
   }
 }
