@@ -1,4 +1,3 @@
-import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Injectable } from "@angular/core";
@@ -25,6 +24,7 @@ export class AuthService {
   }
 
   logout() {
+    this.auth.auth.signOut();
     this.isUserAuth = false;
     this.authChange.next(false);
     this.router.navigate(['/login']);
