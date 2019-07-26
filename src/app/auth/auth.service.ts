@@ -3,13 +3,17 @@ import { Subject } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AngularFireAuth }from "angularfire2/auth"
+import {TrainingService} from "../training/training.service";
 
 @Injectable()
 export class AuthService {
   authChange = new Subject<boolean>();
   private isUserAuth = false;
 
-  constructor(private router: Router, private auth: AngularFireAuth ) {
+  constructor(
+    private router: Router,
+    private auth: AngularFireAuth,
+    private trainingService: TrainingService) {
 
   }
 
@@ -24,6 +28,7 @@ export class AuthService {
   }
 
   logout() {
+    this.trainingService.cancelSubscriptions();
     this.auth.auth.signOut();
     this.isUserAuth = false;
     this.authChange.next(false);
