@@ -19,29 +19,32 @@ export class AuthService {
 
   registerUser(authData: AuthData) {
     this.auth.auth.createUserWithEmailAndPassword(authData.email.trim(), authData.password);
-    this.onAuthSuccess();
   }
 
   login(authData: AuthData) {
     this.auth.auth.signInWithEmailAndPassword(authData.email.trim(), authData.password);
-    this.onAuthSuccess();
   }
 
   logout() {
-    this.trainingService.cancelSubscriptions();
     this.auth.auth.signOut();
-    this.isUserAuth = false;
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
   }
 
   isAuth() {
     return this.isUserAuth;
   }
 
-  private onAuthSuccess(){
-    this.isUserAuth = true;
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
+  initAuthListener() {
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.isUserAuth = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      } else {
+        this.isUserAuth = false;
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+        this.trainingService.cancelSubscriptions();
+      }
+    })
   }
 }
