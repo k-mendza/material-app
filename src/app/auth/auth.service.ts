@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AngularFireAuth }from "angularfire2/auth"
 import {TrainingService} from "../training/training.service";
+import {MatSnackBar} from "@angular/material";
 
 @Injectable()
 export class AuthService {
@@ -13,20 +14,36 @@ export class AuthService {
   constructor(
     private router: Router,
     private auth: AngularFireAuth,
-    private trainingService: TrainingService) {
+    private trainingService: TrainingService,
+    private snackBar: MatSnackBar) {
 
   }
 
   registerUser(authData: AuthData) {
-    this.auth.auth.createUserWithEmailAndPassword(authData.email.trim(), authData.password);
+    this.auth.auth
+      .createUserWithEmailAndPassword(authData.email.trim(), authData.password)
+      .then()
+      .catch( error=>{
+        this.snackBar.open(error.message,null, {duration: 3000});
+      });
   }
 
   login(authData: AuthData) {
-    this.auth.auth.signInWithEmailAndPassword(authData.email.trim(), authData.password);
+    this.auth.auth
+      .signInWithEmailAndPassword(authData.email, authData.password)
+      .then()
+      .catch( error=>{
+        this.snackBar.open(error.message,null, {duration: 3000});
+      });
   }
 
   logout() {
-    this.auth.auth.signOut();
+    this.auth.auth
+      .signOut()
+      .then()
+      .catch( error=>{
+        this.snackBar.open(error.message,null, {duration: 3000});
+      });;
   }
 
   isAuth() {
