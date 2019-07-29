@@ -8,7 +8,6 @@ import {AuthService} from "./auth/auth.service";
 })
 export class AppComponent implements OnInit{
   title = 'material-app';
-  openSideNav = false;
 
   constructor(private authService: AuthService) {
 

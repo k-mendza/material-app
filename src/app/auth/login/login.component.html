@@ -24,6 +24,7 @@
         #pw="ngModel">
       <mat-error *ngIf="pw.hasError('required')">This field must not be empty.</mat-error>
     </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="f.invalid" *ngIf="!isLoading">Submit</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
