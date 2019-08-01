@@ -4,6 +4,8 @@ import {LoginComponent} from "./login/login.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AngularFireAuthModule} from "@angular/fire/auth";
 import {SharedModule} from "../shared/shared.module";
+import {AuthRoutingModule} from "./auth-routing.module";
+import {BrowserModule} from "@angular/platform-browser";
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import {SharedModule} from "../shared/shared.module";
     SharedModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
+    AuthRoutingModule,
+    BrowserModule
   ],
   exports: []
 })

@@ -7,6 +7,7 @@ import {StopTrainingComponent} from "./current-training/stop-training.component"
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../../environments/environment";
 import {SharedModule} from "../shared/shared.module";
+import {TrainingRoutingModule} from "./training-routing.module";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
+    TrainingRoutingModule
   ],
   exports: [],
   entryComponents: [StopTrainingComponent]
