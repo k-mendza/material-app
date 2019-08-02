@@ -8,6 +8,7 @@ import {UIService} from "../shared/ui.service";
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../app.reducer";
 import * as UI from '../shared/ui.actions';
+import * as Auth from '../auth/auth.actions';
 
 @Injectable()
 export class AuthService {
@@ -38,18 +39,19 @@ export class AuthService {
         this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
+
   login(authData: AuthData) {
     // this.uiService.loadingStateChanged.next(true);
-    this.store.dispatch({ type: 'START_LOADING' });
+    this.store.dispatch(new UI.StartLoading());
     this.auth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         // this.uiService.loadingStateChanged.next(false);
-        this.store.dispatch({ type: 'STOP_LOADING' });
+        this.store.dispatch(new UI.StopLoading());
       })
       .catch(error => {
         // this.uiService.loadingStateChanged.next(false);
-        this.store.dispatch({ type: 'STOP_LOADING' });
+        this.store.dispatch(new UI.StopLoading());
         this.uiService.showSnackBar(error.message, null, 3000);
       });
   }
@@ -71,12 +73,12 @@ export class AuthService {
   initAuthListener() {
     this.auth.authState.subscribe(user => {
       if (user) {
+        this.store.dispatch(new Auth.SetAuthenticated());
         this.isUserAuth = true;
-        this.authChange.next(true);
         this.router.navigate(['/training']);
       } else {
+        this.store.dispatch(new Auth.SetUnauthenticated());
         this.isUserAuth = false;
-        this.authChange.next(false);
         this.router.navigate(['/login']);
         this.trainingService.cancelSubscriptions();
       }
