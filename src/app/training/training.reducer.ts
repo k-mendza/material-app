@@ -1,8 +1,8 @@
 import {Exercise} from "./exercise.model";
 import * as fromRoot from '../app.reducer';
 import {
-  SET_AVAILABLE_TRAININGS,
-  SET_FINISHED_TRAININGS,
+  SET_AVAILABLE_EXERCISES,
+  SET_FINISHED_EXERCISES,
   START_TRAINING,
   STOP_TRAINING,
   TrainingActions
@@ -27,12 +27,12 @@ const initialState: TrainingState = {
 
 export function trainingReducer(state = initialState, action: TrainingActions) {
   switch (action.type) {
-    case SET_AVAILABLE_TRAININGS:
+    case SET_AVAILABLE_EXERCISES:
       return {
         ...state,
         availableExercises: action.payload
       };
-    case SET_FINISHED_TRAININGS:
+    case SET_FINISHED_EXERCISES:
       return {
         ...state,
         finishedExercises: action.payload
@@ -40,7 +40,7 @@ export function trainingReducer(state = initialState, action: TrainingActions) {
     case START_TRAINING:
       return {
         ...state,
-        activeTraining: action.payload
+        activeTraining: {...state.availableExercises.find(ex => ex.id === action.payload)}
       };
     case STOP_TRAINING:
       return {
