@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../../app.reducer';
